@@ -3,145 +3,159 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>N7 — South-west sub shrine | Sambor Prei Kuk</title>
+<title>N7 — South-west sub shrine, Prasat Sambor | Sambor Prei Kuk</title>
 <style>
-:root { --ink:#1f2933; --muted:#627282; --line:#d9dee5; --bg:#f6f7f9; --panel:#fff; --accent:#6b5b2b; --accent2:#294d6b; }
+:root { --ink:#1d2733; --muted:#64748b; --line:#d8dee8; --bg:#f6f4ef; --panel:#fff; --accent:#79672f; --accent-dark:#3f361a; --green:#758f45; }
 * { box-sizing:border-box; }
-body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.55; }
-a { color:#245b8f; }
-header { background:linear-gradient(135deg,#403916,#7d7135); color:white; padding:34px 22px 28px; }
-.header-inner { max-width:1120px; margin:0 auto; }
-.kicker { letter-spacing:.14em; text-transform:uppercase; opacity:.85; font-size:13px; }
-h1 { margin:.15em 0 .05em; font-size:clamp(34px,5vw,58px); line-height:1.0; }
-.subtitle { font-size:20px; opacity:.95; margin:0; }
-.container { max-width:1120px; margin:0 auto; padding:24px 18px 60px; }
-nav.top { display:flex; gap:10px; flex-wrap:wrap; margin:0 0 18px; }
-nav.top a { background:#fff; border:1px solid var(--line); padding:8px 12px; border-radius:999px; text-decoration:none; color:var(--ink); font-size:14px; }
-.panel { background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:22px; margin:18px 0; box-shadow:0 1px 8px rgba(0,0,0,.04); }
-h2 { margin:0 0 14px; font-size:24px; border-bottom:2px solid #e9edf2; padding-bottom:8px; }
-h3 { margin:4px 0 12px; font-size:20px; color:#2d3748; }
-h4 { margin:16px 0 8px; color:#4a5568; }
-.meta { border-collapse:collapse; width:100%; }
-.meta th,.meta td { border-bottom:1px solid #e6e9ee; padding:9px 10px; text-align:left; vertical-align:top; }
-.meta th { width:210px; color:#4a5568; background:#fafbfc; font-weight:650; }
-.meta.compact th { width:240px; }
+body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Arial, sans-serif; color:var(--ink); background:var(--bg); line-height:1.6; }
+a { color:#285f91; }
+.site-header { background:linear-gradient(135deg,var(--accent-dark),var(--accent)); color:white; padding:32px 22px 26px; }
+.header-inner { max-width:1180px; margin:0 auto; }
+.archive-title { letter-spacing:.13em; font-size:16px; font-weight:700; text-transform:uppercase; opacity:.92; }
+h1 { margin:12px 0 4px; font-size:clamp(42px,6vw,76px); line-height:.95; }
+.subtitle { margin:0; font-size:clamp(18px,2.4vw,26px); opacity:.96; }
+.container { max-width:1180px; margin:0 auto; padding:24px 18px 56px; }
+.top-nav { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:18px; }
+.top-nav a { background:white; border:1px solid var(--line); border-radius:999px; color:var(--ink); padding:8px 13px; text-decoration:none; font-size:14px; }
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; margin:20px 0; padding:24px; box-shadow:0 1px 10px rgba(0,0,0,.045); }
+.section-title { margin:0 0 16px; padding-bottom:9px; border-bottom:3px solid #e8dfc4; font-size:26px; }
+.hero { background:white; border:1px solid var(--line); border-radius:16px; overflow:hidden; margin:22px 0; box-shadow:0 1px 10px rgba(0,0,0,.045); }
+.hero img { display:block; width:100%; max-height:760px; object-fit:cover; }
+.hero figcaption { padding:10px 14px; color:var(--muted); font-size:14px; }
+.info-table { width:100%; border-collapse:collapse; }
+.info-table th,.info-table td { border-bottom:1px solid #e6e9ef; padding:10px 12px; text-align:left; vertical-align:top; }
+.info-table th { width:210px; background:#fafafa; color:#445060; font-weight:700; }
 .description { font-size:16px; }
-.gallery { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px; }
-.gallery .card { margin:0; border:1px solid var(--line); background:white; border-radius:10px; overflow:hidden; }
-.gallery img { width:100%; height:190px; object-fit:cover; display:block; background:#f0f0f0; }
-.gallery figcaption { padding:8px 10px; font-size:13px; color:#4a5568; }
-.object { border-top:1px solid var(--line); padding-top:18px; margin-top:22px; }
-.model iframe { width:100%; min-height:520px; border:0; border-radius:10px; background:#111; }
-.muted { color:var(--muted); }
-.footer { margin-top:28px; font-size:13px; color:var(--muted); }
-@media (max-width:700px) { .meta th,.meta td { display:block; width:100%; } .gallery img { height:auto; } .model iframe { min-height:360px; } }
+.media-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px; }
+.media-grid.small { grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); margin-top:14px; }
+.media-card { margin:0; border:1px solid var(--line); background:white; border-radius:12px; overflow:hidden; }
+.media-card img { display:block; width:100%; height:220px; object-fit:cover; background:#f0f0f0; }
+#drawings .media-card img, #old-photos .media-card img { height:320px; object-fit:contain; padding:8px; background:#fff; }
+.media-card figcaption { padding:9px 11px; color:#526070; font-size:13px; }
+.model-frame { width:100%; min-height:540px; border:0; border-radius:12px; background:#111; }
+.object-block { border-top:1px solid var(--line); margin-top:22px; padding-top:20px; }
+.object-block:first-of-type { border-top:0; margin-top:0; padding-top:0; }
+.object-block h3 { margin:0 0 12px; font-size:22px; color:#2f3a45; }
+.object-block h3 span { font-size:15px; color:var(--muted); font-weight:600; margin-left:8px; }
+.object-table th { width:260px; }
+.object-note { margin:14px 0 8px; }
+.object-note p { margin:6px 0 0; }
+.footer { border-top:1px solid var(--line); margin-top:30px; padding:18px 0 0; text-align:center; color:#5e6b78; font-size:14px; }
+@media (max-width:720px) { .info-table th,.info-table td { display:block; width:100%; } .media-card img, #drawings .media-card img, #old-photos .media-card img { height:auto; } .model-frame { min-height:360px; } }
 </style>
 </head>
 <body>
-<header>
+<header class="site-header">
   <div class="header-inner">
-    <div class="kicker">Sambor Prei Kuk Monument Detail</div>
+    <div class="archive-title">SAMBOR PREI KUK: MONUMENT ARCHIVE</div>
     <h1>N7</h1>
     <p class="subtitle">South-west sub shrine, Prasat Sambor</p>
   </div>
 </header>
 <main class="container">
-  <nav class="top">
+  <nav class="top-nav">
     <a href="../index.html">← Back to interactive map</a>
-    <a href="#current-photos">Current Photos</a>
+    <a href="#basic">Basic Information</a>
+    <a href="#photos">Photos</a>
+    <a href="#model">3D Model</a>
+    <a href="#drawings">Drawings</a>
     <a href="#stone-objects">Stone Objects</a>
     <a href="#old-photos">Old Photographs</a>
-    <a href="#drawings">Drawings</a>
-    <a href="#model">3D Model</a>
   </nav>
 
+  <figure class="hero">
+    <a href="../details_assets/N7/photos/N7_photo_01.jpg" target="_blank" rel="noopener"><img src="../details_assets/N7/photos/N7_photo_01.jpg" alt="N7 current photo 1"></a>
+    <figcaption>N7 current photo 1</figcaption>
+  </figure>
+
   <section class="panel" id="basic">
-    <h2>Basic Information</h2>
-    <table class="meta"><tr><th>Site ID</th><td>N7</td></tr>
-<tr><th>Parent ID</th><td>M.020</td></tr>
-<tr><th>Code</th><td>N7</td></tr>
-<tr><th>Display No.</th><td>N7</td></tr>
-<tr><th>Function</th><td>South-west sub shrine</td></tr>
-<tr><th>Importance</th><td>A2</td></tr>
-<tr><th>Composition</th><td>None</td></tr>
+    <h2 class="section-title">Basic Information</h2>
+    <table class="info-table"><tr><th>Building Type</th><td>Shrine within Complex</td></tr>
 <tr><th>Condition</th><td>Remain with the top of the roof part</td></tr>
-<tr><th>Stand in</th><td>None</td></tr>
-<tr><th>Dimension</th><td>None</td></tr>
+<tr><th>Stone object</th><td>404, 422, 423</td></tr>
 <tr><th>Inscription</th><td>None</td></tr>
-<tr><th>Stone Objects</th><td>404;422;423</td></tr>
-<tr><th>UTM E</th><td>504641.0</td></tr>
-<tr><th>UTM N</th><td>1422819.0</td></tr>
-</table>
+<tr><th>UTM (East)</th><td>504641</td></tr>
+<tr><th>UTM (North)</th><td>1422819</td></tr></table>
   </section>
 
   <section class="panel description" id="description">
-    <h2>Description</h2>
+    <h2 class="section-title">Description</h2>
     <p>This is a single shrine of the octagonal plan in this temple complex. 4 tiers of roof are at least remaining. Stucco and pigment partially remain on the Flying Palace. Excavation survey in the main chamber in 2003. Pillar holes were confirmed on the brick floor at corners of the pedestal. In other words, we can conjecture that the wooden canopy was installed for covering the deity on the pedestal. Looted hole was confirmed under the lowest layer of the large round pedestal, but no object was found through the excavation survey of this hole. Front step was restored in 2007. One lintel in Sambor Prei Kuk style was unearthed from the front of this shrine. Broken pedestal fragments that were collected by the excavation in the chamber were reconstructed with a small amount of new sandstone in 2007-2008. Temporary support was added at the inner opening in 2012. (All works were done by SCP)</p>
   </section>
 
-  <section class="panel" id="current-photos">
-    <h2>Current Photos</h2>
-    <div class="gallery"><figure class="card"><a href="../details_assets/N7/photos/N7_photo_01.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_01.jpg" alt="N7 current photo 1"></a><figcaption>N7 current photo 1</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/photos/N7_photo_02.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_02.jpg" alt="N7 current photo 2"></a><figcaption>N7 current photo 2</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/photos/N7_photo_03.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_03.jpg" alt="N7 current photo 3"></a><figcaption>N7 current photo 3</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/photos/N7_photo_04.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_04.jpg" alt="N7 current photo 4"></a><figcaption>N7 current photo 4</figcaption></figure></div>
-  </section>
-
-  <section class="panel" id="stone-objects">
-    <h2>Stone Objects</h2>
-    <section class="object"><h3>N000C03 — Serial No. 404</h3>
-    <table class="meta compact">
-      <tr><th>Serial No.</th><td>404</td></tr>
-      <tr><th>Object No.</th><td>N000C03</td></tr>
-      <tr><th>Item</th><td>None</td></tr>
-      <tr><th>Actual Size (cm)</th><td>L: -, W/D: 15, H: 31</td></tr>
-      <tr><th>Estimated Original Size (cm)</th><td>L: -, W/D: 15, H: -</td></tr>
-    </table><h4>Photos</h4><div class="gallery"><figure class="card"><a href="../details_assets/N7/stone_objects/N000C03-1.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N000C03-1.JPG" alt="N000C03 photo 1"></a><figcaption>N000C03 photo 1</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/stone_objects/N000C03-2.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N000C03-2.JPG" alt="N000C03 photo 2"></a><figcaption>N000C03 photo 2</figcaption></figure></div><h4>Note</h4><p>Colonette fragment: is round, ornamented with a motif foliage row and many squares row. It was broken nearly a middle part.</p></section>
-<section class="object"><h3>N070E01 — Serial No. 422</h3>
-    <table class="meta compact">
-      <tr><th>Serial No.</th><td>422</td></tr>
-      <tr><th>Object No.</th><td>N070E01</td></tr>
-      <tr><th>Item</th><td>Base of colonnette</td></tr>
-      <tr><th>Actual Size (cm)</th><td>L: 55, W/D: 39, H: 28</td></tr>
-      <tr><th>Estimated Original Size (cm)</th><td>L: 55, W/D: 39, H: 28</td></tr>
-    </table><h4>Photos</h4><div class="gallery"><figure class="card"><a href="../details_assets/N7/stone_objects/N070E01-1.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N070E01-1.JPG" alt="N070E01 photo 1"></a><figcaption>N070E01 photo 1</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/stone_objects/N070E01-2.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N070E01-2.JPG" alt="N070E01 photo 2"></a><figcaption>N070E01 photo 2</figcaption></figure></div><h4>Note</h4><p>Base of colonnade: is rectangular, two tiers, square hole is at the center of it (not deep), No decoration.</p></section>
-<section class="object"><h3>N070L01 — Serial No. 423</h3>
-    <table class="meta compact">
-      <tr><th>Serial No.</th><td>423</td></tr>
-      <tr><th>Object No.</th><td>N070L01</td></tr>
-      <tr><th>Item</th><td>Lintel</td></tr>
-      <tr><th>Actual Size (cm)</th><td>L: 236, W/D: 22, H: 45</td></tr>
-      <tr><th>Estimated Original Size (cm)</th><td>L: 236, W/D: 22, H: 45</td></tr>
-    </table><h4>Photos</h4><div class="gallery"><figure class="card"><a href="../details_assets/N7/stone_objects/N070L01-1.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N070L01-1.JPG" alt="N070L01 photo 1"></a><figcaption>N070L01 photo 1</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/stone_objects/N070L01-2.JPG" target="_blank"><img loading="lazy" src="../details_assets/N7/stone_objects/N070L01-2.JPG" alt="N070L01 photo 2"></a><figcaption>N070L01 photo 2</figcaption></figure></div><h4>Note</h4><p>Lintel: There are three pieces of its. The figure Indra seated on the elephant Airavata in the middle medallion and Marut seated on their horses. Under the medallion are big lotus flowers. The figure seated on the right Makara was damaged, and the head of the left figure was disappeared. There are three holes on the upper surface but they were missed. It&#x27;s in Sambor Prei Kuk style.</p></section>
-  </section>
-
-  <section class="panel" id="old-photos">
-    <h2>Old Photographs</h2>
-    <div class="gallery"><figure class="card"><a href="../details_assets/N7/old_photos/op_0001.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0001.jpg" alt="Old photograph SPK reference No. 0001"></a><figcaption>Old photograph SPK reference No. 0001</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0010.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0010.jpg" alt="Old photograph SPK reference No. 0010"></a><figcaption>Old photograph SPK reference No. 0010</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0031.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0031.jpg" alt="Old photograph SPK reference No. 0031"></a><figcaption>Old photograph SPK reference No. 0031</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0032.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0032.jpg" alt="Old photograph SPK reference No. 0032"></a><figcaption>Old photograph SPK reference No. 0032</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0033.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0033.jpg" alt="Old photograph SPK reference No. 0033"></a><figcaption>Old photograph SPK reference No. 0033</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0166.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0166.jpg" alt="Old photograph SPK reference No. 0166"></a><figcaption>Old photograph SPK reference No. 0166</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/old_photos/op_0167.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/old_photos/op_0167.jpg" alt="Old photograph SPK reference No. 0167"></a><figcaption>Old photograph SPK reference No. 0167</figcaption></figure></div>
-  </section>
-
-  <section class="panel" id="drawings">
-    <h2>Drawings</h2>
-    <div class="gallery"><figure class="card"><a href="../details_assets/N7/drawings/N07_plan.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/drawings/N07_plan.jpg" alt="Plan of N7 tower"></a><figcaption>Plan of N7 tower</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/drawings/N7_East.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/drawings/N7_East.jpg" alt="East elevation of N7 tower"></a><figcaption>East elevation of N7 tower</figcaption></figure>
-<figure class="card"><a href="../details_assets/N7/drawings/N7_North.jpg" target="_blank"><img loading="lazy" src="../details_assets/N7/drawings/N7_North.jpg" alt="North elevation of N7 tower"></a><figcaption>North elevation of N7 tower</figcaption></figure></div>
+  <section class="panel" id="photos">
+    <h2 class="section-title">Photos</h2>
+    <div class="media-grid"><figure class="media-card"><a href="../details_assets/N7/photos/N7_photo_02.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_02.jpg" alt="N7 current photo 2"></a><figcaption>N7 current photo 2</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/photos/N7_photo_03.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_03.jpg" alt="N7 current photo 3"></a><figcaption>N7 current photo 3</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/photos/N7_photo_04.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/photos/N7_photo_04.jpg" alt="N7 current photo 4"></a><figcaption>N7 current photo 4</figcaption></figure></div>
   </section>
 
   <section class="panel" id="model">
-    <h2>3D Model</h2>
-    <div class="model"><iframe title="N7 3D model" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/2254326ceb1d424c8431a5536abeb3a7/embed"></iframe></div><p><a href="https://sketchfab.com/3d-models/prasat-sambor-n7-2254326ceb1d424c8431a5536abeb3a7" target="_blank" rel="noopener">Open 3D model on Sketchfab</a></p>
+    <h2 class="section-title">3D Model</h2>
+    <iframe class="model-frame" title="N7 3D model" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/2254326ceb1d424c8431a5536abeb3a7/embed"></iframe>
+    <p><a href="https://sketchfab.com/3d-models/prasat-sambor-n7-2254326ceb1d424c8431a5536abeb3a7" target="_blank" rel="noopener">Open 3D model on Sketchfab</a></p>
   </section>
 
-  <p class="footer">Generated from CSV datasets: sites.csv, stone_objects.csv, and assets.csv. Asset paths are relative to <code>details/N7.html</code>.</p>
+  <section class="panel" id="drawings">
+    <h2 class="section-title">Drawings</h2>
+    <div class="media-grid"><figure class="media-card"><a href="../details_assets/N7/drawings/N07_plan.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/drawings/N07_plan.jpg" alt="Plan of N7 tower"></a><figcaption>Plan of N7 tower</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/drawings/N7_East.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/drawings/N7_East.jpg" alt="East elevation of N7 tower"></a><figcaption>East elevation of N7 tower</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/drawings/N7_North.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/drawings/N7_North.jpg" alt="North elevation of N7 tower"></a><figcaption>North elevation of N7 tower</figcaption></figure></div>
+  </section>
+
+  <section class="panel" id="stone-objects">
+    <h2 class="section-title">Stone Objects</h2>
+    <article class="object-block">
+<h3>N000C03 <span>Serial No. 404</span></h3>
+<table class="info-table object-table"><tr><th>Serial No.</th><td>404</td></tr>
+<tr><th>Object No.</th><td>N000C03</td></tr>
+<tr><th>Item</th><td>None</td></tr>
+<tr><th>Actual Size (cm)</th><td>L: -, W/D: 15, H: 31</td></tr>
+<tr><th>Estimated Original Size (cm)</th><td>L: -, W/D: 15, H: -</td></tr></table>
+<div class="object-note"><strong>Note</strong><p>Colonette fragment: is round, ornamented with a motif foliage
+row and many squares row. It was broken nearly a middle part.</p></div>
+<div class="media-grid small"><figure class="media-card"><a href="../details_assets/N7/stone_objects/N000C03-1.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N000C03-1.JPG" alt="N000C03 photo 1"></a><figcaption>N000C03 photo 1</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/stone_objects/N000C03-2.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N000C03-2.JPG" alt="N000C03 photo 2"></a><figcaption>N000C03 photo 2</figcaption></figure></div>
+</article>
+<article class="object-block">
+<h3>N070E01 <span>Serial No. 422</span></h3>
+<table class="info-table object-table"><tr><th>Serial No.</th><td>422</td></tr>
+<tr><th>Object No.</th><td>N070E01</td></tr>
+<tr><th>Item</th><td>Base of colonnette</td></tr>
+<tr><th>Actual Size (cm)</th><td>L: 55, W/D: 39, H: 28</td></tr>
+<tr><th>Estimated Original Size (cm)</th><td>L: 55, W/D: 39, H: 28</td></tr></table>
+<div class="object-note"><strong>Note</strong><p>Base of colonnade: is rectangular, two tiers, square hole is at the center of it (not deep), No decoration.</p></div>
+<div class="media-grid small"><figure class="media-card"><a href="../details_assets/N7/stone_objects/N070E01-1.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N070E01-1.JPG" alt="N070E01 photo 1"></a><figcaption>N070E01 photo 1</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/stone_objects/N070E01-2.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N070E01-2.JPG" alt="N070E01 photo 2"></a><figcaption>N070E01 photo 2</figcaption></figure></div>
+</article>
+<article class="object-block">
+<h3>N070L01 <span>Serial No. 423</span></h3>
+<table class="info-table object-table"><tr><th>Serial No.</th><td>423</td></tr>
+<tr><th>Object No.</th><td>N070L01</td></tr>
+<tr><th>Item</th><td>Lintel</td></tr>
+<tr><th>Actual Size (cm)</th><td>L: 236, W/D: 22, H: 45</td></tr>
+<tr><th>Estimated Original Size (cm)</th><td>L: 236, W/D: 22, H: 45</td></tr></table>
+<div class="object-note"><strong>Note</strong><p>Lintel: There are three pieces of its. The figure Indra seated on the elephant Airavata in the middle medallion and Marut seated on their horses. Under the medallion are big lotus flowers. The figure seated on the right Makara was damaged, and the head of the left figure was disappeared. There are three holes on the upper surface but they were missed. It&#x27;s in Sambor Prei Kuk style.</p></div>
+<div class="media-grid small"><figure class="media-card"><a href="../details_assets/N7/stone_objects/N070L01-1.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N070L01-1.JPG" alt="N070L01 photo 1"></a><figcaption>N070L01 photo 1</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/stone_objects/N070L01-2.JPG" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/stone_objects/N070L01-2.JPG" alt="N070L01 photo 2"></a><figcaption>N070L01 photo 2</figcaption></figure></div>
+</article>
+  </section>
+
+  <section class="panel" id="old-photos">
+    <h2 class="section-title">Old Photographs</h2>
+    <div class="media-grid"><figure class="media-card"><a href="../details_assets/N7/old_photos/op_0001.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0001.jpg" alt="Old photograph SPK reference No. 0001"></a><figcaption>Old photograph SPK reference No. 0001</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0010.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0010.jpg" alt="Old photograph SPK reference No. 0010"></a><figcaption>Old photograph SPK reference No. 0010</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0031.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0031.jpg" alt="Old photograph SPK reference No. 0031"></a><figcaption>Old photograph SPK reference No. 0031</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0032.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0032.jpg" alt="Old photograph SPK reference No. 0032"></a><figcaption>Old photograph SPK reference No. 0032</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0033.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0033.jpg" alt="Old photograph SPK reference No. 0033"></a><figcaption>Old photograph SPK reference No. 0033</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0166.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0166.jpg" alt="Old photograph SPK reference No. 0166"></a><figcaption>Old photograph SPK reference No. 0166</figcaption></figure>
+<figure class="media-card"><a href="../details_assets/N7/old_photos/op_0167.jpg" target="_blank" rel="noopener"><img loading="lazy" src="../details_assets/N7/old_photos/op_0167.jpg" alt="Old photograph SPK reference No. 0167"></a><figcaption>Old photograph SPK reference No. 0167</figcaption></figure></div>
+  </section>
+
+  <footer class="footer">
+    <div>Sambor Prei Kuk Conservation Project</div>
+    <div>National Authority for Sambor Prei Kuk – Lab. of Architectural Heritage, Univ. of Tsukuba</div>
+  </footer>
 </main>
 </body>
 </html>
