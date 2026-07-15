@@ -1,263 +1,482 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Sambor Prei Kuk Monument Archive">
-  <title>Sambor Prei Kuk: Monument Archive</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <link rel="stylesheet" href="css/leaflet.css">
+  <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+  <link rel="stylesheet" href="css/qgis2web.css">
+  <link rel="stylesheet" href="css/fontawesome-all.min.css">
+  <link rel="stylesheet" href="css/leaflet.photon.css">
+
   <style>
-    :root{
-      --ink:#272421; --muted:#746f68; --line:#d8d1c7; --paper:#f7f4ef;
-      --card:#ffffff; --accent:#6c5a44; --max:1120px;
+    html, body, #map {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
     }
-    *{box-sizing:border-box}
-    body{margin:0;background:var(--paper);color:var(--ink);
-      font-family:Georgia,"Times New Roman",serif;line-height:1.65}
-    a{color:inherit}
-    .page{max-width:var(--max);margin:0 auto;background:var(--card);min-height:100vh;
-      box-shadow:0 0 36px rgba(40,34,28,.08)}
-    header{padding:38px 48px 28px;border-bottom:1px solid var(--line)}
-    .eyebrow{font-family:Arial,sans-serif;font-size:.76rem;letter-spacing:.18em;
-      text-transform:uppercase;color:var(--muted);font-weight:700}
-    h1{font-size:clamp(2.2rem,5vw,4.8rem);line-height:1.02;margin:.35rem 0 .55rem;font-weight:500}
-    .subtitle{font-size:1.15rem;color:var(--muted);margin:0}
-    main{padding:38px 48px 58px}
-    section{margin-top:44px}
-    section:first-child{margin-top:0}
-    h2{font-size:1.45rem;font-weight:500;margin:0 0 18px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-    .hero img{display:block;width:100%;max-height:760px;object-fit:contain;background:#eeeae3}
-    .caption{font-family:Arial,sans-serif;font-size:.82rem;color:var(--muted);margin-top:7px}
-    .info{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--line)}
-    .info-row{display:grid;grid-template-columns:145px 1fr;gap:16px;padding:10px 0;border-bottom:1px solid var(--line)}
-    .info-row:nth-child(odd){padding-right:24px}
-    .label{font-family:Arial,sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-    .value{min-width:0}
-    .description{font-size:1.06rem;white-space:pre-line}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
-    .grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-    figure{margin:0}
-    figure img{width:100%;display:block;max-height:650px;object-fit:contain;background:#eeeae3}
-    .asset-link{display:block;text-decoration:none}
-    .model-frame{width:100%;aspect-ratio:16/9;border:0;background:#111}
-    .model-link{display:inline-block;margin-top:10px;font-family:Arial,sans-serif;font-size:.9rem}
-    .old-pair{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
-    .old-pair.single{grid-template-columns:1fr}
-    .pair-label{font-family:Arial,sans-serif;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
-    .notice{padding:18px;border:1px solid var(--line);background:#faf8f4;font-family:Arial,sans-serif}
-    footer{border-top:1px solid var(--line);padding:28px 48px 40px;color:var(--muted);font-size:.88rem}
-    footer strong{color:var(--ink);font-weight:600}
-    .hidden{display:none!important}
-    @media (max-width:760px){
-      header,main,footer{padding-left:22px;padding-right:22px}
-      .grid,.grid.three,.info,.old-pair{grid-template-columns:1fr}
-      .info-row:nth-child(odd){padding-right:0}
-      .info-row{grid-template-columns:120px 1fr}
+
+    .spk-popup {
+      width: 270px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #272727;
+    }
+    .spk-popup-title {
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin: 0 0 5px;
+    }
+    .spk-popup-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+    .spk-popup-function {
+      font-size: 13px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .spk-popup-photo {
+      margin: 10px 0 11px;
+      text-align: center;
+      background: #f0f0f0;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .spk-popup-photo img {
+      display: block;
+      width: 100%;
+      max-height: 210px;
+      object-fit: contain;
+      background: #f0f0f0;
+    }
+    .spk-popup-detail a {
+      display: inline-block;
+      padding: 7px 12px;
+      border-radius: 3px;
+      background: #556f8e;
+      color: #fff !important;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .spk-popup-detail a:hover {
+      background: #405a79;
+    }
+    .spk-popup-note {
+      margin-top: 8px;
+      font-size: 11px;
+      color: #888;
+    }
+
+    .leaflet-tooltip.css_Site_Point_9 {
+      background: rgba(255,255,255,.78);
+      border: 0;
+      box-shadow: none;
+      padding: 1px 3px;
+      font: bold 8pt Arial, sans-serif;
+      color: #323232;
     }
   </style>
+  <title>Sambor Prei Kuk WebGIS</title>
 </head>
 <body>
-<div class="page">
-  <header>
-    <div class="eyebrow">Sambor Prei Kuk: Monument Archive</div>
-    <h1 id="title">Loading…</h1>
-    <p id="subtitle" class="subtitle"></p>
-  </header>
-  <main id="content"><div class="notice">Loading archive data…</div></main>
-  <footer>
-    <strong>Sambor Prei Kuk Conservation Project</strong><br>
-    National Authority for Sambor Prei Kuk – Lab. of Architectural Heritage, Univ. of Tsukuba
-  </footer>
-</div>
+<div id="map"></div>
+
+<script src="js/qgis2web_expressions.js"></script>
+<script src="js/leaflet.js"></script>
+<script src="js/L.Control.Layers.Tree.min.js"></script>
+<script src="js/leaflet.rotatedMarker.js"></script>
+<script src="js/leaflet.pattern.js"></script>
+<script src="js/leaflet-hash.js"></script>
+<script src="js/Autolinker.min.js"></script>
+<script src="js/rbush.min.js"></script>
+<script src="js/labelgun.min.js"></script>
+<script src="js/labels.js"></script>
+<script src="js/leaflet.photon.js"></script>
+
+<script src="data/BufferZone_1.js"></script>
+<script src="data/River_2.js"></script>
+<script src="data/Dike_3.js"></script>
+<script src="data/Pond_4.js"></script>
+<script src="data/Structure_line_5.js"></script>
+<script src="data/Structurepolygon_6.js"></script>
+<script src="data/Excavation_polygon_7.js"></script>
+<script src="data/Excavation_line_1cm_8.js"></script>
+<script src="data/Site_Point_9.js"></script>
 
 <script>
-(() => {
-  const DATA_ROOT = '../detail_data/';
-  const ASSET_ROOT = '../';
+(function () {
+  'use strict';
 
-  function csvParse(text){
-    const rows=[]; let row=[], field='', quoted=false;
-    for(let i=0;i<text.length;i++){
-      const c=text[i], n=text[i+1];
-      if(quoted){
-        if(c === '"' && n === '"'){ field+='"'; i++; }
-        else if(c === '"'){ quoted=false; }
-        else field+=c;
-      }else{
-        if(c === '"') quoted=true;
-        else if(c === ','){ row.push(field); field=''; }
-        else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
-        else if(c !== '\r') field+=c;
+  var map = L.map('map', {
+    zoomControl: false,
+    maxZoom: 25,
+    minZoom: 1
+  }).fitBounds([
+    [12.855524066228302, 105.00919543495749],
+    [12.888396566665433, 105.05715727727456]
+  ]);
+
+  new L.Hash(map);
+
+  map.attributionControl.setPrefix(
+    '<a href="https://github.com/qgis2web/qgis2web" target="_blank" rel="noopener">qgis2web</a>' +
+    ' &middot; <a href="https://leafletjs.com" target="_blank" rel="noopener">Leaflet</a>' +
+    ' &middot; <a href="https://qgis.org" target="_blank" rel="noopener">QGIS</a>'
+  );
+
+  L.control.zoom({ position: 'topleft' }).addTo(map);
+
+  // ------------------------------------------------------------------
+  // CSV loading: use the same data source as the Detail Pages.
+  // ------------------------------------------------------------------
+  function csvParse(text) {
+    var rows = [], row = [], field = '', quoted = false;
+    for (var i = 0; i < text.length; i++) {
+      var c = text[i], n = text[i + 1];
+      if (quoted) {
+        if (c === '"' && n === '"') {
+          field += '"';
+          i++;
+        } else if (c === '"') {
+          quoted = false;
+        } else {
+          field += c;
+        }
+      } else {
+        if (c === '"') quoted = true;
+        else if (c === ',') {
+          row.push(field);
+          field = '';
+        } else if (c === '\n') {
+          row.push(field);
+          rows.push(row);
+          row = [];
+          field = '';
+        } else if (c !== '\r') {
+          field += c;
+        }
       }
     }
-    if(field.length || row.length){ row.push(field); rows.push(row); }
-    if(!rows.length) return [];
-    const headers=rows[0].map(h=>h.replace(/^\uFEFF/,'').trim());
-    return rows.slice(1).filter(r=>r.some(v=>String(v).trim()!=='')).map(r=>{
-      const o={}; headers.forEach((h,j)=>o[h]=(r[j]??'').trim()); return o;
+    if (field.length || row.length) {
+      row.push(field);
+      rows.push(row);
+    }
+    if (!rows.length) return [];
+
+    var headers = rows[0].map(function (h) {
+      return h.replace(/^\uFEFF/, '').trim();
     });
+
+    return rows.slice(1)
+      .filter(function (r) {
+        return r.some(function (v) { return String(v).trim() !== ''; });
+      })
+      .map(function (r) {
+        var o = {};
+        headers.forEach(function (h, j) {
+          o[h] = (r[j] == null ? '' : r[j]).trim();
+        });
+        return o;
+      });
   }
 
-  async function loadCsv(name){
-    const r=await fetch(DATA_ROOT+name,{cache:'no-store'});
-    if(!r.ok) throw new Error(`${name}: HTTP ${r.status}`);
-    return csvParse(await r.text());
+  function loadCsv(path) {
+    return fetch(path, { cache: 'no-store' }).then(function (response) {
+      if (!response.ok) throw new Error(path + ': HTTP ' + response.status);
+      return response.text();
+    }).then(csvParse);
   }
 
-  const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const present=v=>v!==undefined && v!==null && String(v).trim()!=='' && String(v).trim().toLowerCase()!=='none';
-  const order=a=>Number(a.Display_Order||999999);
-  const assetUrl=p=>ASSET_ROOT + String(p||'').replace(/^\/+/,'');
-  const fileName=p=>String(p||'').split('/').pop();
-  const pairId=p=>{ const m=fileName(p).match(/(?:OP|NP)_(\d+)/i); return m?m[1]:fileName(p); };
-
-  function sketchfabEmbed(url){
-    if(!url) return '';
-    const m=url.match(/3d-models\/[^/]*-([a-f0-9]{32})(?:[/?#]|$)/i);
-    return m ? `https://sketchfab.com/models/${m[1]}/embed?autostart=0&ui_theme=dark` : '';
+  function naturalOrder(value) {
+    var n = Number(value);
+    return isFinite(n) ? n : 999999;
   }
 
-  function figure(a, fallback){
-    const cap=present(a.Caption)?a.Caption:fallback;
-    return `<figure><a class="asset-link" href="${esc(assetUrl(a.File))}" target="_blank" rel="noopener">
-      <img src="${esc(assetUrl(a.File))}" alt="${esc(cap||'Archive image')}" loading="lazy"></a>
-      ${cap?`<figcaption class="caption">${esc(cap)}</figcaption>`:''}</figure>`;
-  }
+  var archiveDataPromise = Promise.all([
+    loadCsv('detail_data/sites.csv'),
+    loadCsv('detail_data/assets.csv')
+  ]).then(function (result) {
+    var sites = result[0];
+    var assets = result[1];
 
-  function infoRow(label,value){
-    return present(value)?`<div class="info-row"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`:'';
-  }
+    var siteById = {};
+    var aliasToId = {};
+    var leadPhotoBySite = {};
 
-  function section(title,body){
-    return body?`<section><h2>${esc(title)}</h2>${body}</section>`:'';
-  }
+    sites.forEach(function (site) {
+      var id = site.Site_ID;
+      if (!id) return;
+      siteById[id] = site;
 
-  function renderOldPhotos(oldPhotos,newPhotos){
-    const oldMap=new Map(oldPhotos.map(x=>[pairId(x.File),x]));
-    const newMap=new Map(newPhotos.map(x=>[pairId(x.File),x]));
-    const ids=[...new Set([...oldMap.keys(),...newMap.keys()])].sort((a,b)=>Number(a)-Number(b));
-    return ids.map(id=>{
-      const op=oldMap.get(id), np=newMap.get(id);
-      const cols=[];
-      if(op) cols.push(`<div><div class="pair-label">Old photograph</div>${figure(op,op.Caption||`OP_${id}`)}</div>`);
-      if(np) cols.push(`<div><div class="pair-label">Current comparison</div>${figure(np,np.Caption||`NP_${id}`)}</div>`);
-      return `<div class="old-pair ${cols.length===1?'single':''}">${cols.join('')}</div>`;
-    }).join('');
-  }
+      [site.Site_ID, site.Code, site.Display_No].forEach(function (alias) {
+        if (alias) aliasToId[String(alias).trim()] = id;
+      });
+    });
 
-  async function main(){
-    const params=new URLSearchParams(location.search);
-    let id=params.get('id');
-    if(!id){
-      const leaf=decodeURIComponent(location.pathname.split('/').pop()||'').replace(/\.html$/i,'');
-      if(leaf && leaf.toLowerCase()!=='index') id=leaf;
-    }
-    if(!id) throw new Error('No Site_ID was specified.');
+    assets
+      .filter(function (a) { return a.Asset_Type === 'current_photo' && a.Site_ID && a.File; })
+      .sort(function (a, b) {
+        var s = String(a.Site_ID).localeCompare(String(b.Site_ID), undefined, { numeric: true });
+        if (s !== 0) return s;
+        return naturalOrder(a.Display_Order) - naturalOrder(b.Display_Order);
+      })
+      .forEach(function (a) {
+        if (!leadPhotoBySite[a.Site_ID]) leadPhotoBySite[a.Site_ID] = a.File;
+      });
 
-    const [sites,assets,stones]=await Promise.all([
-      loadCsv('sites.csv'), loadCsv('assets.csv'), loadCsv('stone_objects.csv')
-    ]);
-    const site=sites.find(s=>s.Site_ID===id);
-    if(!site) throw new Error(`Site_ID "${id}" was not found in sites.csv.`);
-
-    const parent=sites.find(s=>s.Site_ID===site.Parent_ID);
-    const a=assets.filter(x=>x.Site_ID===id).sort((x,y)=>order(x)-order(y));
-    const current=a.filter(x=>x.Asset_Type==='current_photo');
-    const drawings=a.filter(x=>x.Asset_Type==='drawing');
-    const models=a.filter(x=>x.Asset_Type==='3d_model');
-    const oldPhotos=a.filter(x=>x.Asset_Type==='old_photo');
-    const newPhotos=a.filter(x=>x.Asset_Type==='new_photo');
-    const objects=stones.filter(x=>x.Site_ID===id).sort((x,y)=>order(x)-order(y));
-
-    let title, subtitle='';
-    if(site.Importance==='A1'){
-      title=present(site.Name)?site.Name:(site.Display_No||site.Site_ID);
-    }else if(/^A[2-4]$/.test(site.Importance)){
-      title=site.Display_No||site.Site_ID;
-      const parentName=parent && present(parent.Name) ? parent.Name : '';
-      const second=present(site.Name)?site.Name:parentName;
-      subtitle=[site.Function,second].filter(present).join(', ');
-    }else{
-      title=site.Display_No||site.Site_ID;
-      subtitle=present(site.Composition)?site.Composition:(site.Name||'');
-    }
-
-    document.title=`${title} | Sambor Prei Kuk Monument Archive`;
-    document.getElementById('title').textContent=title;
-    const sub=document.getElementById('subtitle');
-    sub.textContent=subtitle; if(!subtitle) sub.classList.add('hidden');
-
-    let html='';
-    if(current.length){
-      html+=`<section class="hero">${figure(current[0],current[0].Caption||'')}</section>`;
-    }
-
-    // Basic Information
-    let info='';
-    if(site.Importance==='A1'){
-      info+=infoRow('CISARK No.',site.CISARK_No);
-      info+=infoRow('Building Type',site.Building_Type_Label);
-      info+=infoRow('Composition',site.Composition);
-      info+=infoRow('Condition',site.Condition);
-      info+=infoRow('Inscription',site.Inscription);
-      info+=infoRow('UTM (East)',site.UTM_E);
-      info+=infoRow('UTM (North)',site.UTM_N);
-    }else if(/^A[2-4]$/.test(site.Importance)){
-      info+=infoRow('Building Type',site.Building_Type_Label);
-      info+=infoRow('Condition',site.Condition);
-      info+=infoRow('Stone object',site.Stone_object);
-      info+=infoRow('Inscription',site.Inscription);
-      info+=infoRow('UTM (East)',site.UTM_E);
-      info+=infoRow('UTM (North)',site.UTM_N);
-    }else{
-      info+=infoRow('CISARK No.',site.CISARK_No);
-      info+=infoRow('Building Type',site.Building_Type_Label);
-      info+=infoRow('Condition',site.Condition);
-      info+=infoRow('Setting',site.Stand_in);
-      info+=infoRow('Stone object',site.Stone_object);
-      info+=infoRow('Inscription',site.Inscription);
-      info+=infoRow('UTM (East)',site.UTM_E);
-      info+=infoRow('UTM (North)',site.UTM_N);
-    }
-    html+=section('Basic Information',info?`<div class="info">${info}</div>`:'');
-
-    if(present(site.Description)) html+=section('Description',`<div class="description">${esc(site.Description)}</div>`);
-
-    // Multiple current photos for every type, including A1.
-    if(current.length>1){
-      html+=section('Photos',`<div class="grid">${current.slice(1).map((x,i)=>figure(x,x.Caption||`Photo ${i+2}`)).join('')}</div>`);
-    }
-
-    if(models.length){
-      const modelHtml=models.map((m,i)=>{
-        const embed=sketchfabEmbed(m.External_URL);
-        const label=present(m.Caption)?m.Caption:`3D Model ${i+1}`;
-        return `<div>${embed?`<iframe class="model-frame" src="${esc(embed)}" allow="autoplay; fullscreen; xr-spatial-tracking" allowfullscreen loading="lazy"></iframe>`:''}
-          ${m.External_URL?`<a class="model-link" href="${esc(m.External_URL)}" target="_blank" rel="noopener">Open ${esc(label)} in Sketchfab ↗</a>`:''}</div>`;
-      }).join('');
-      html+=section('3D Model',modelHtml);
-    }
-
-    if(drawings.length){
-      html+=section('Drawings',`<div class="grid">${drawings.map((x,i)=>figure(x,x.Caption||`Drawing ${i+1}`)).join('')}</div>`);
-    }
-
-    if(objects.length){
-      html+=section('Stone Objects',`<div class="grid three">${objects.map((x,i)=>figure(x,x.Caption||x.Item||`Artifact ${i+1}`)).join('')}</div>`);
-    }
-
-    if(oldPhotos.length || newPhotos.length){
-      html+=section('Old Photographs',renderOldPhotos(oldPhotos,newPhotos));
-    }
-
-    if(!html) html='<div class="notice">No displayable content is registered for this record.</div>';
-    document.getElementById('content').innerHTML=html;
-  }
-
-  main().catch(err=>{
-    document.getElementById('title').textContent='Archive page unavailable';
-    document.getElementById('content').innerHTML=`<div class="notice">${esc(err.message)}</div>`;
-    console.error(err);
+    return {
+      siteById: siteById,
+      aliasToId: aliasToId,
+      leadPhotoBySite: leadPhotoBySite
+    };
+  }).catch(function (err) {
+    console.error('Could not load archive CSV data:', err);
+    return { siteById: {}, aliasToId: {}, leadPhotoBySite: {} };
   });
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function valueOf(props, names) {
+    for (var i = 0; i < names.length; i++) {
+      var value = props[names[i]];
+      if (value !== null && value !== undefined) {
+        value = String(value).trim();
+        if (value && value.toLowerCase() !== 'null' && value.toLowerCase() !== 'none') {
+          return value;
+        }
+      }
+    }
+    return '';
+  }
+
+  function idFromDetailUrl(url) {
+    if (!url) return '';
+    var match = String(url).match(/\/?([^\/?#]+)\.html(?:[?#].*)?$/i);
+    return match ? decodeURIComponent(match[1]) : '';
+  }
+
+  function resolveSiteId(props, archive) {
+    var candidates = [
+      valueOf(props, ['csv_Site_ID']),
+      valueOf(props, ['Site_ID']),
+      valueOf(props, ['site_id']),
+      valueOf(props, ['Code']),
+      valueOf(props, ['csv_Code']),
+      idFromDetailUrl(valueOf(props, ['csv_Detail_web', 'Detail_web', 'Detail_URL']))
+    ].filter(Boolean);
+
+    for (var i = 0; i < candidates.length; i++) {
+      if (archive.siteById[candidates[i]]) return candidates[i];
+      if (archive.aliasToId[candidates[i]]) return archive.aliasToId[candidates[i]];
+    }
+    return candidates.length ? candidates[0] : '';
+  }
+
+  function buildPopup(feature, archive) {
+    var props = feature.properties || {};
+    var siteId = resolveSiteId(props, archive);
+    var site = archive.siteById[siteId] || {};
+
+    var displayNo = valueOf(props, ['Display_No']) || site.Display_No || siteId;
+    var name = valueOf(props, ['Name']) || site.Name || '';
+    var func = valueOf(props, ['Function']) || site.Function || '';
+
+    var photoFile = archive.leadPhotoBySite[siteId] || '';
+    var detailUrl = siteId ? ('details/' + encodeURIComponent(siteId) + '.html') :
+      valueOf(props, ['csv_Detail_web', 'Detail_web', 'Detail_URL']);
+
+    var html = '<div class="spk-popup">';
+    html += '<div class="spk-popup-title">' + escapeHtml(displayNo || siteId || 'Site') + '</div>';
+
+    if (name && name.toLowerCase() !== 'no name') {
+      html += '<div class="spk-popup-name">' + escapeHtml(name) + '</div>';
+    }
+    if (func) {
+      html += '<div class="spk-popup-function">' + escapeHtml(func) + '</div>';
+    }
+    if (photoFile) {
+      html += '<div class="spk-popup-photo">' +
+        '<img src="' + escapeHtml(photoFile) + '" alt="' + escapeHtml(displayNo) + '"' +
+        ' onerror="this.parentNode.style.display=\'none\';">' +
+        '</div>';
+    }
+    if (detailUrl) {
+      html += '<div class="spk-popup-detail">' +
+        '<a href="' + escapeHtml(detailUrl) + '" target="_blank" rel="noopener noreferrer">' +
+        '<i class="fas fa-external-link-alt" aria-hidden="true"></i> Detail Web</a>' +
+        '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  // ------------------------------------------------------------------
+  // Background / archaeology layers
+  // ------------------------------------------------------------------
+  map.createPane('pane_LiDAR_Terrain2m_0');
+  map.getPane('pane_LiDAR_Terrain2m_0').style.zIndex = 400;
+  var layer_LiDAR_Terrain2m_0 = L.imageOverlay(
+    'data/LiDAR_Terrain2m_0.png',
+    [[12.82581614706117, 104.973254239375], [12.933794440391019, 105.11552386189315]],
+    { pane: 'pane_LiDAR_Terrain2m_0' }
+  ).addTo(map);
+
+  function addGeoJsonLayer(data, paneName, zIndex, style) {
+    map.createPane(paneName);
+    map.getPane(paneName).style.zIndex = zIndex;
+    map.getPane(paneName).style['mix-blend-mode'] = 'normal';
+    return L.geoJson(data, {
+      pane: paneName,
+      interactive: false,
+      style: style
+    }).addTo(map);
+  }
+
+  var layer_BufferZone_1 = addGeoJsonLayer(json_BufferZone_1, 'pane_BufferZone_1', 401, {
+    color: 'rgba(72,123,182,1)', weight: 3, fillOpacity: 0
+  });
+
+  var layer_River_2 = addGeoJsonLayer(json_River_2, 'pane_River_2', 402, {
+    color: 'rgba(34,21,231,1)', weight: 1, fillOpacity: 0
+  });
+
+  var layer_Dike_3 = addGeoJsonLayer(json_Dike_3, 'pane_Dike_3', 403, {
+    color: 'rgba(35,35,35,1)', weight: 1,
+    fill: true, fillColor: 'rgba(155,105,43,1)', fillOpacity: 1
+  });
+
+  var layer_Pond_4 = addGeoJsonLayer(json_Pond_4, 'pane_Pond_4', 404, {
+    color: 'rgba(35,35,35,1)', weight: 1,
+    fill: true, fillColor: 'rgba(124,213,221,1)', fillOpacity: 1
+  });
+
+  var layer_Structure_line_5 = addGeoJsonLayer(json_Structure_line_5, 'pane_Structure_line_5', 405, {
+    color: 'rgba(0,0,0,1)', weight: 1, fillOpacity: 0
+  });
+
+  var layer_Structurepolygon_6 = addGeoJsonLayer(json_Structurepolygon_6, 'pane_Structurepolygon_6', 406, {
+    color: 'rgba(35,35,35,1)', weight: 1,
+    fill: true, fillColor: 'rgba(0,0,0,1)', fillOpacity: 1
+  });
+
+  var layer_Excavation_polygon_7 = addGeoJsonLayer(json_Excavation_polygon_7, 'pane_Excavation_polygon_7', 407, {
+    color: 'rgba(35,35,35,1)', weight: 1,
+    fill: true, fillColor: 'rgba(0,0,0,1)', fillOpacity: 1
+  });
+
+  var layer_Excavation_line_1cm_8 = addGeoJsonLayer(json_Excavation_line_1cm_8, 'pane_Excavation_line_1cm_8', 408, {
+    color: 'rgba(98,56,31,1)', weight: 1, fillOpacity: 0
+  });
+
+  // ------------------------------------------------------------------
+  // Site points
+  // ------------------------------------------------------------------
+  function siteStyle(feature) {
+    var importance = String((feature.properties || {}).Importance || '');
+    var common = {
+      pane: 'pane_Site_Point_9',
+      opacity: 1,
+      weight: 2,
+      fill: true,
+      fillOpacity: 1,
+      interactive: true
+    };
+
+    var redStroke = 'rgba(128,17,25,1)';
+    var redFill = 'rgba(219,30,42,1)';
+    var greenStroke = 'rgba(61,128,53,1)';
+    var greenFill = 'rgba(84,176,74,1)';
+
+    if (importance === 'A1') return Object.assign({}, common, { radius: 8.4, color: redStroke, fillColor: redFill });
+    if (importance === 'A2') return Object.assign({}, common, { radius: 6.0, color: redStroke, fillColor: redFill });
+    if (importance === 'A3') return Object.assign({}, common, { radius: 4.4, color: redStroke, fillColor: redFill });
+    if (importance === 'A4') return Object.assign({}, common, { radius: 3.2, color: redStroke, fillColor: redFill });
+    if (importance === 'B1') return Object.assign({}, common, { radius: 6.0, color: greenStroke, fillColor: greenFill });
+    if (importance === 'B2') return Object.assign({}, common, { radius: 4.4, color: greenStroke, fillColor: greenFill });
+    return Object.assign({}, common, { radius: 3.6, color: greenStroke, fillColor: greenFill });
+  }
+
+  map.createPane('pane_Site_Point_9');
+  map.getPane('pane_Site_Point_9').style.zIndex = 409;
+
+  var layer_Site_Point_9 = L.geoJson(json_Site_Point_9, {
+    pane: 'pane_Site_Point_9',
+    interactive: true,
+    pointToLayer: function (feature, latlng) {
+      return L.circleMarker(latlng, siteStyle(feature));
+    },
+    onEachFeature: function (feature, layer) {
+      var preliminary = '<div class="spk-popup"><div class="spk-popup-title">' +
+        escapeHtml(valueOf(feature.properties || {}, ['Display_No']) || 'Site') +
+        '</div></div>';
+
+      layer.bindPopup(preliminary, { maxWidth: 320, maxHeight: 520 });
+
+      layer.on('click', function () {
+        archiveDataPromise.then(function (archive) {
+          layer.setPopupContent(buildPopup(feature, archive));
+          if (layer.isPopupOpen()) layer.getPopup().update();
+        });
+      });
+
+      var label = valueOf(feature.properties || {}, ['Display_No']);
+      if (label) {
+        layer.bindTooltip(escapeHtml(label), {
+          permanent: true,
+          offset: [0, -16],
+          className: 'css_Site_Point_9',
+          direction: 'center'
+        });
+      }
+    }
+  }).addTo(map);
+
+  // ------------------------------------------------------------------
+  // Layer list
+  // ------------------------------------------------------------------
+  var siteLegend =
+    'Site_Point<br /><table>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_TempleComplex0.png"></td><td>Temple Complex</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_ShrinewithinComplex1.png"></td><td>Shrine within Complex</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_RuinedShrinewithinComplex2.png"></td><td>Ruined Shrine within Complex</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_OtherStructurewithinComplex3.png"></td><td>Other Structure within Complex</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_IndependentShrine4.png"></td><td>Independent Shrine</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_RuinedIndependentStructure5.png"></td><td>Ruined Independent Structure</td></tr>' +
+    '<tr><td style="text-align:center"><img src="legend/Site_Point_9_MoundStructuralRemains6.png"></td><td>Mound / Structural Remains</td></tr>' +
+    '</table>';
+
+  var overlaysTree = [
+    { label: siteLegend, layer: layer_Site_Point_9 },
+    { label: '<img src="legend/Excavation_line_1cm_8.png"> Excavation_line_1cm', layer: layer_Excavation_line_1cm_8 },
+    { label: '<img src="legend/Excavation_polygon_7.png"> Excavation_polygon', layer: layer_Excavation_polygon_7 },
+    { label: '<img src="legend/Structurepolygon_6.png"> Structure polygon', layer: layer_Structurepolygon_6 },
+    { label: '<img src="legend/Structure_line_5.png"> Structure_line', layer: layer_Structure_line_5 },
+    { label: '<img src="legend/Pond_4.png"> Pond', layer: layer_Pond_4 },
+    { label: '<img src="legend/Dike_3.png"> Dike', layer: layer_Dike_3 },
+    { label: '<img src="legend/River_2.png"> River', layer: layer_River_2 },
+    { label: '<img src="legend/BufferZone_1.png"> BufferZone', layer: layer_BufferZone_1 },
+    { label: 'LiDAR_Terrain (2m)', layer: layer_LiDAR_Terrain2m_0 }
+  ];
+
+  L.control.layers.tree(null, overlaysTree, {
+    collapsed: false
+  }).addTo(map);
+
 })();
 </script>
 </body>
