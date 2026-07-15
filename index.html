@@ -76,13 +76,13 @@
     }
 
     .leaflet-tooltip.css_Site_Point_9 {
-      background: rgba(255,255,255,.38);
+      background: rgba(255,255,255,.22);
       border: 0;
-      border-radius: 1px;
+      border-radius: 0;
       box-shadow: none;
-      padding: 0 1px;
+      padding: 0;
       font: bold 8pt Arial, sans-serif;
-      line-height: 1.08;
+      line-height: 1.03;
       color: #323232;
       white-space: nowrap;
     }
@@ -380,6 +380,14 @@
     fill: true, fillColor: 'rgba(0,0,0,1)', fillOpacity: 1
   });
 
+  // Treat the two QGIS structure layers as one layer in the WebGIS control.
+  map.removeLayer(layer_Structure_line_5);
+  map.removeLayer(layer_Structurepolygon_6);
+  var layer_Structure = L.layerGroup([
+    layer_Structure_line_5,
+    layer_Structurepolygon_6
+  ]).addTo(map);
+
   var layer_Excavation_polygon_7 = addGeoJsonLayer(json_Excavation_polygon_7, 'pane_Excavation_polygon_7', 407, {
     color: 'rgba(35,35,35,1)', weight: 1,
     fill: true, fillColor: 'rgba(0,0,0,1)', fillOpacity: 1
@@ -444,7 +452,7 @@
       if (label) {
         layer.bindTooltip(escapeHtml(label), {
           permanent: true,
-          offset: [0, -9],
+          offset: [5, -8],
           className: 'css_Site_Point_9',
           direction: 'top'
         });
@@ -470,8 +478,7 @@
     { label: siteLegend, layer: layer_Site_Point_9 },
     { label: '<img src="legend/Excavation_line_1cm_8.png"> Excavation_line_1cm', layer: layer_Excavation_line_1cm_8 },
     { label: '<img src="legend/Excavation_polygon_7.png"> Excavation_polygon', layer: layer_Excavation_polygon_7 },
-    { label: '<img src="legend/Structurepolygon_6.png"> Structure polygon', layer: layer_Structurepolygon_6 },
-    { label: '<img src="legend/Structure_line_5.png"> Structure_line', layer: layer_Structure_line_5 },
+    { label: '<span style="display:inline-block;width:14px;height:14px;background:#000;border:1px solid #333;vertical-align:middle;margin-right:4px;"></span> Structure', layer: layer_Structure },
     { label: '<img src="legend/Pond_4.png"> Pond', layer: layer_Pond_4 },
     { label: '<img src="legend/Dike_3.png"> Dike', layer: layer_Dike_3 },
     { label: '<img src="legend/River_2.png"> River', layer: layer_River_2 },
@@ -480,7 +487,7 @@
   ];
 
   L.control.layers.tree(null, overlaysTree, {
-    collapsed: false
+    collapsed: true
   }).addTo(map);
 
 })();
