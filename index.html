@@ -76,12 +76,18 @@
     }
 
     .leaflet-tooltip.css_Site_Point_9 {
-      background: rgba(255,255,255,.78);
+      background: rgba(255,255,255,.62);
       border: 0;
+      border-radius: 2px;
       box-shadow: none;
-      padding: 1px 3px;
+      padding: 0 2px;
       font: bold 8pt Arial, sans-serif;
+      line-height: 1.15;
       color: #323232;
+      white-space: nowrap;
+    }
+    .leaflet-tooltip.css_Site_Point_9:before {
+      display: none;
     }
   </style>
   <title>Sambor Prei Kuk WebGIS</title>
@@ -438,9 +444,9 @@
       if (label) {
         layer.bindTooltip(escapeHtml(label), {
           permanent: true,
-          offset: [0, -16],
+          offset: [7, -10],
           className: 'css_Site_Point_9',
-          direction: 'center'
+          direction: 'right'
         });
       }
     }
